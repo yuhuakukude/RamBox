@@ -253,7 +253,7 @@ export default function Header() {
                 setMobileMenuOpen(open => !open)
               }}
             >
-              <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="#252525">
+              <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="#ffbe01">
                 <path d="M1 1H13" strokeWidth="1.4" strokeLinecap="round" />
                 <path d="M1 7H13" strokeWidth="1.4" strokeLinecap="round" />
               </svg>
