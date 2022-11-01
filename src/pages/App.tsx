@@ -8,7 +8,9 @@ import Web3ReactManager from '../components/essential/Web3ReactManager'
 import WarningModal from '../components/Modal/WarningModal'
 // import ComingSoon from './ComingSoon'
 import Home from '../pages/home'
+import MobileHome from '../pages/home/mobile'
 import { ModalProvider } from 'context/ModalContext'
+import { isMobile } from 'react-device-detect'
 // import Footer from 'components/Footer'
 
 const AppWrapper = styled('div')(({ theme }) => ({
@@ -58,7 +60,7 @@ export default function App() {
               <WarningModal />
               <Web3ReactManager>
                 <Switch>
-                  <Route exact strict path="/home" component={Home} />
+                  <Route exact strict path="/home" component={isMobile ? MobileHome : Home} />
                 </Switch>
               </Web3ReactManager>
             </BodyWrapper>
