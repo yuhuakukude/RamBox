@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material'
+import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/material'
 import Image from '../../components/Image'
 import topBG from '../../assets/images/top-bg-mobile.png'
@@ -134,7 +134,9 @@ export default function MobileHome() {
         <Typography mt={4} mb={20} fontSize={12} textAlign={'center'}>
           The first NFTfi aggregation protocol which advocates F2P2E (Free to Play to Earn)
         </Typography>
-        <BuyButton sx={{ transform: 'scale(0.8)' }}>Buy $RAM</BuyButton>
+        <Link underline="none" href={'/#/ido'}>
+          <BuyButton sx={{ transform: 'scale(0.8)' }}>Buy $RAM</BuyButton>
+        </Link>
         <ExternalLink href="">
           <Typography sx={{ transform: 'scale(0.8)' }} mt={2} fontSize={12} color={'#ffffff'}>
             0x62214327CB0CB4041F84e6B7e6FeC6418af26F34
@@ -280,7 +282,7 @@ export default function MobileHome() {
             padding={'0px 12px'}
             justifyContent={'space-between'}
           >
-            <Typography sx={{ whiteSpace: 'nowrap' }} lineHeight={'100px'} height={100} fontSize={14} color={'#FFBE01'}>
+            <Typography sx={{ whiteSpace: 'nowrap' }} lineHeight={'100px'} height={130} fontSize={14} color={'#FFBE01'}>
               Q2 2022
             </Typography>
             <Typography lineHeight={'120px'} height={130} fontSize={14} color={'#FFBE01'}>
@@ -299,7 +301,7 @@ export default function MobileHome() {
               Q2 2022
             </Typography>
           </Stack>
-          <Stack spacing={32} margin={'auto'} mt={36} justifyContent={'space-between'}>
+          <Stack margin={'auto'} mt={36} justifyContent={'space-between'}>
             {list.map((item, index) => {
               return (
                 <Stack height={130} spacing={12} key={index}>
