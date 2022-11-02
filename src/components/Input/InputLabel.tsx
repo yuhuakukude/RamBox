@@ -14,6 +14,7 @@ export default function InputLabel({
   return (
     <MuiInputLabel
       sx={{
+        border: '1px solid #',
         color: theme => theme.palette.text.secondary,
         marginBottom: '8px',
         display: 'flex',

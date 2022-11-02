@@ -80,15 +80,7 @@ export default function NumericalInput({
           onMax && (
             <Box gap="20px" display="flex" alignItems="center" paddingLeft="10px" paddingBottom="2px">
               {endAdornment ? endAdornment : unit && <span>{unit ?? 'USDT'}</span>}
-              <SecondaryButton
-                disabled={props.disabled === true ? true : false}
-                primary
-                onClick={onMax}
-                style={{
-                  width: '60px',
-                  height: '32px'
-                }}
-              >
+              <SecondaryButton disabled={props.disabled === true ? true : false} primary onClick={onMax}>
                 MAX
               </SecondaryButton>
             </Box>

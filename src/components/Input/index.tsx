@@ -28,7 +28,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     fontWeight: 400,
     backgroundColor: theme.palette.background.default,
     paddingLeft: 20,
-    borderRadius: 14
+    borderRadius: 14,
+    border: `1px solid ${theme.palette.primary.main} !important`
   },
   [`&.${inputBaseClasses.focused}`]: { border: `1px solid ${theme.palette.primary.main} !important` },
   [`& .${inputBaseClasses.input}`]: {

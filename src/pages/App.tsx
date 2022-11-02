@@ -9,6 +9,7 @@ import WarningModal from '../components/Modal/WarningModal'
 // import ComingSoon from './ComingSoon'
 import Home from '../pages/home'
 import MobileHome from '../pages/home/mobile'
+import IDO from '../pages/ido'
 import { ModalProvider } from 'context/ModalContext'
 import { isMobile } from 'react-device-detect'
 // import Footer from 'components/Footer'
@@ -60,6 +61,7 @@ export default function App() {
               <Web3ReactManager>
                 <Switch>
                   <Route exact strict path="/home" component={isMobile ? MobileHome : Home} />
+                  <Route exact strict path="/ido" component={IDO} />
                 </Switch>
               </Web3ReactManager>
             </BodyWrapper>
