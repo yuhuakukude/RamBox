@@ -5,10 +5,12 @@ import { ExternalLink } from 'theme/components'
 import Web3Status from './Web3Status'
 import { HideOnMobile, ShowOnMobile } from 'theme/index'
 import PlainSelect from 'components/Select/PlainSelect'
+import topImage from '../../assets/images/top-img.png'
 // import Image from 'components/Image'
 // import logo from '../../assets/svg/chain_swap.svg'
 import { routes } from 'constants/routes'
 import MobileMenu from './MobileMenu'
+import Image from '../Image'
 // import NetworkSelect from './NetworkSelect'
 
 interface TabContent {
@@ -24,7 +26,7 @@ interface Tab extends TabContent {
 
 export const Tabs: Tab[] = [
   { title: 'RamBox', route: routes.RamBox },
-  { title: 'Gamelist', route: routes.test },
+  { title: 'IDO', route: routes.IDO },
   { title: 'Marketplace', route: routes.test },
   { title: 'Roadmap', route: routes.test },
   { title: 'Dao', route: routes.test },
@@ -81,9 +83,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
       opacity: 1
     }
   },
-  '& .lr': {
-    width: '180px'
-  },
+  '& .lr': {},
   [theme.breakpoints.down('lg')]: {
     '& .link': { marginRight: 15 },
     padding: '0 24px 0 0!important'
@@ -143,6 +143,7 @@ export default function Header() {
       <MobileMenu isOpen={mobileMenuOpen} onDismiss={handleMobileMenueDismiss} />
       <Filler />
       <StyledAppBar>
+        <Image width={60} src={topImage} />
         <HideOnMobile className="lr"></HideOnMobile>
         <Box display="flex" alignItems="center">
           {/* <MainLogo id={'logo'} to={'/'}>
@@ -234,7 +235,6 @@ export default function Header() {
             </LinksWrapper>
           </HideOnMobile>
         </Box>
-
         <Box className="lr" display="flex" alignItems="center" gap={{ xs: '6px', sm: '20px' }}>
           {/* <NetworkSelect /> */}
           <Web3Status />

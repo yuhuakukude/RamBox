@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material'
+import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material'
 import { styled } from '@mui/material'
 import Image from '../../components/Image'
 import topBG from '../../assets/images/top-bg.png'
@@ -18,6 +18,7 @@ import coin from '../../assets/images/coin.png'
 import footerBG from '../../assets/images/footer-bg.png'
 import centerBG from '../../assets/images/center-bg.png'
 import { ExternalLink } from '../../theme/components'
+import { PROJECTS } from '../../constants'
 
 const TopFrame = styled('div')(`
 width: 100%;
@@ -52,7 +53,6 @@ const BuyButton = styled(Button)`
 `
 
 const TextCard = styled(Typography)`
-  width: 284px;
   height: 80px;
   box-shadow: 0 0 10px 4px #242381 inset;
   font-size: 24px;
@@ -128,9 +128,11 @@ export default function Home() {
         </Stack>
         <Image width={381} src={topText} />
         <Typography mt={35} mb={57} fontSize={32} textAlign={'center'}>
-          The first GameFi aggregation protocol which advocates F2P2E (Free to Play to Earn)
+          The first NFTfi aggregation protocol which advocates F2P2E (Free to Play to Earn)
         </Typography>
-        <BuyButton>Buy $RAM</BuyButton>
+        <Link underline="none" href={'/#/ido'}>
+          <BuyButton>Buy $RAM</BuyButton>
+        </Link>
         <ExternalLink href="">
           <Typography mt={33} fontSize={32} color={'#ffffff'}>
             0x62214327CB0CB4041F84e6B7e6FeC6418af26F34
@@ -153,7 +155,7 @@ export default function Home() {
         </Stack>
       </TopFrame>
       <Box sx={{ background: `url(${centerBG})`, backgroundPosition: 'center', backgroundSize: 'auto 100%' }}>
-        <Title style={{ marginTop: 117 }}>Project Video</Title>
+        {/*<Title style={{ marginTop: 117 }}>Project Video</Title>*/}
         <Title>RamBox Products</Title>
         <Stack mt={75} justifyContent={'center'} spacing={26} direction={'row'}>
           <Card
@@ -202,37 +204,29 @@ export default function Home() {
           <Stack>
             <Image width={194} src={flower} />
             <Typography mt={46} fontSize={16} color={'#FFBE01'}>
-              Total Supply: 74,380,704 RAM
+              Total Supply: 6,000,000,000 RAM
             </Typography>
           </Stack>
         </Stack>
 
         <Title style={{ marginTop: 159 }}>Investors & Partners</Title>
-        <Grid mt={74} justifyContent={'center'} container rowSpacing={21} columnSpacing={20} direction={'row'}>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
+        <Grid
+          margin={'auto'}
+          width={1200}
+          mt={74}
+          justifyContent={'center'}
+          container
+          rowSpacing={21}
+          columnSpacing={20}
+          direction={'row'}
+        >
+          {PROJECTS.map((item, index) => {
+            return (
+              <Grid key={index} item xs={4}>
+                <TextCard>{item}</TextCard>
+              </Grid>
+            )
+          })}
         </Grid>
       </Box>
       <Box
@@ -261,13 +255,13 @@ export default function Home() {
             <Stack direction={'row'}>
               <Typography fontSize={18}>Total Supply: </Typography>
               <Typography fontSize={18} color={'#F9662A'}>
-                &nbsp; 74,380,704 RAM
+                &nbsp; 6,000,000,000 RAM
               </Typography>
             </Stack>
             <Stack direction={'row'}>
               <Typography fontSize={18}>Max Supply: </Typography>
               <Typography fontSize={18} color={'#F9662A'}>
-                &nbsp;74,380,704 RAM
+                &nbsp;0 RAM
               </Typography>
             </Stack>
           </Stack>

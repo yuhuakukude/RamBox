@@ -68,7 +68,7 @@ export const theme = {
     },
     secondary: {
       light: '#31B047',
-      main: '#D4F3D8',
+      main: '#FFBE01',
       dark: '#129026',
       contrastText: '#ffffff'
     },

@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { styled } from '@mui/material'
 import Header from '../components/Header'
 import Polling from '../components/essential/Polling'
@@ -62,6 +62,9 @@ export default function App() {
                 <Switch>
                   <Route exact strict path="/home" component={isMobile ? MobileHome : Home} />
                   <Route exact strict path="/ido" component={IDO} />
+                  <Route path="/">
+                    <Redirect to="/home" />
+                  </Route>
                 </Switch>
               </Web3ReactManager>
             </BodyWrapper>

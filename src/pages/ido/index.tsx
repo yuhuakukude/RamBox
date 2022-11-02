@@ -3,9 +3,9 @@ import ActionButton from '../../components/Button/ActionButton'
 import { useIDO, useMint } from '../../hooks/useIDO'
 import NumericalInput from '../../components/Input/InputNumerical'
 import { useTokenBalance } from '../../state/wallet/hooks'
-import { RAM_ADDRESS, USDT } from '../../constants'
+import { RAM, RAM_ADDRESS, USDT } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import usdtImg from '../../assets/images/usdt.png'
 import useModal from '../../hooks/useModal'
 import TransactionPendingModal from 'components/Modal/TransactionModals/TransactionPendingModal'
@@ -13,15 +13,18 @@ import TransactionSubmittedModal from '../../components/Modal/TransactionModals/
 import MessageBox from '../../components/Modal/TransactionModals/MessageBox'
 import { tryParseAmount } from '../../utils/parseAmount'
 import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
+import { isMobile } from 'react-device-detect'
+import { TokenAmount } from '../../constants/token'
 
 export default function IDO() {
   const { account, chainId } = useActiveWeb3React()
   const [typed, setTyped] = useState('')
   const { showModal, hideModal } = useModal()
-  const { totalSale, totalSaleWithAccount, totalSoleAmount } = useIDO()
+  const { totalSale, totalSoleAmountInUSDT, totalSoleAmount, totalSaleUSDTWithAccount } = useIDO()
   const { mint } = useMint()
   const usdtBalance = useTokenBalance(account ?? undefined, USDT[chainId ?? 56])
-  const inputAmount = tryParseAmount(typed, USDT[chainId ?? 56])
+  const ramBalance = useTokenBalance(account ?? undefined, RAM[chainId ?? 56])
+  const inputAmount = tryParseAmount(typed, USDT[chainId ?? 56]) as TokenAmount | undefined
   const [approvalState, approveCallback] = useApproveCallback(inputAmount, RAM_ADDRESS)
   const mintCallback = useCallback(async () => {
     if (!typed || !account || !inputAmount) return
@@ -38,30 +41,47 @@ export default function IDO() {
         )
         console.error(err)
       })
-  }, [typed, account, showModal, mint, hideModal])
+  }, [typed, account, inputAmount, showModal, mint, hideModal])
+  const mintDisable = useMemo(() => {
+    if (
+      !inputAmount ||
+      !totalSaleUSDTWithAccount ||
+      totalSaleUSDTWithAccount.add(inputAmount).greaterThan(BigInt('200'))
+    ) {
+      return true
+    }
+    return false
+  }, [inputAmount, totalSaleUSDTWithAccount])
+  console.log('t', totalSaleUSDTWithAccount?.raw.toString(), inputAmount?.raw.toString())
+  console.log(
+    'mint dis',
+    totalSaleUSDTWithAccount && inputAmount ? totalSaleUSDTWithAccount.add(inputAmount).raw.toString() : '--'
+  )
   return (
     <Stack>
       <Stack
         justifyContent={'center'}
         alignItems={'center'}
-        padding={'68px 55px'}
+        padding={'30px 20px'}
         borderRadius={'12px'}
-        width={540}
+        width={isMobile ? 'unset' : 540}
         boxShadow={'0 0 10px 4px #242381 inset'}
+        margin={'auto 20px'}
       >
-        <Typography fontSize={36}>
+        <Typography fontSize={isMobile ? 28 : 36}>
           RamBox<span style={{ color: '#FFBE01' }}>已经</span>启动
         </Typography>
-        <Typography mt={32} fontSize={18}>
+        <Typography mt={32} fontSize={isMobile ? 16 : 18}>
           链接钱包，参与项目早期财务活动
         </Typography>
         <Typography color={'#FFBE01'} fontSize={28} mt={20}>
-          预售
+          Pre Sale
         </Typography>
         <Typography mb={36} mt={20}>
-          100 USDT / 50000 RAM{' '}
+          100 USDT / 20000 RAM{' '}
         </Typography>
         <NumericalInput
+          style={{ marginBottom: 20 }}
           unit="USDT"
           balance={usdtBalance?.toExact()}
           placeholder={''}
@@ -79,10 +99,12 @@ export default function IDO() {
         />
         <ActionButton
           pending={approvalState === ApprovalState.PENDING}
-          disableAction={!usdtBalance || !inputAmount}
+          disableAction={!usdtBalance || !inputAmount || mintDisable}
           actionText={
             !inputAmount
               ? 'Enter amount'
+              : mintDisable
+              ? 'Max is 200U'
               : approvalState === ApprovalState.NOT_APPROVED
               ? 'Allow RamBox to use your USDT'
               : 'Buy RAM'
@@ -106,25 +128,30 @@ export default function IDO() {
             <Typography fontSize={16}>{totalSale.toSignificant(6, { groupSeparator: ',' }).toString()}</Typography>
           </Stack>
           <Stack width={'100%'} justifyContent={'space-between'} direction={'row'}>
-            <Typography fontSize={16}>Left RAM</Typography>
-            <Typography fontSize={16}>0%</Typography>
-          </Stack>
-          <Stack width={'100%'} justifyContent={'space-between'} direction={'row'}>
             <Typography fontSize={16}>Total sold USDT</Typography>
             <Typography fontSize={16}>
-              {totalSaleWithAccount ? totalSaleWithAccount.toSignificant(6, { groupSeparator: ',' }).toString() : '--'}
+              {totalSoleAmountInUSDT
+                ? totalSoleAmountInUSDT.toSignificant(6, { groupSeparator: ',' }).toString()
+                : '--'}
+            </Typography>
+          </Stack>
+          <Stack width={'100%'} justifyContent={'space-between'} direction={'row'}>
+            <Typography fontSize={16}>My RAM</Typography>
+            <Typography fontSize={16}>
+              {ramBalance ? ramBalance.toSignificant(6, { groupSeparator: ',' }).toString() : '--'}
             </Typography>
           </Stack>
         </Stack>
       </Stack>
       <Stack
-        mt={30}
         justifyContent={'center'}
         alignItems={'center'}
-        padding={'68px 55px'}
+        padding={'30px 20px'}
         borderRadius={'12px'}
-        width={540}
+        width={isMobile ? 'unset' : 540}
         boxShadow={'0 0 10px 4px #242381 inset'}
+        margin={'auto 20px'}
+        mt={30}
       >
         <Typography>100u私募一是发行50U等值代币，让参与的玩家注入煎饼流池，合力做大梦想，做大资产，做大格局</Typography>
         <Typography>此外，50U上线后，DAPP将放大6倍进行挖矿，并邀请10%的代币进行奖励。自由交易不会被锁定。</Typography>

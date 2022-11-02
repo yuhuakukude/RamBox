@@ -1,26 +1,30 @@
 import { useActiveWeb3React } from './index'
 import { useRAMContract } from './useContract'
-import { CurrencyAmount } from '../constants/token'
+import { CurrencyAmount, TokenAmount } from '../constants/token'
 import { useSingleCallResult } from '../state/multicall/hooks'
 import { useTransactionAdder } from '../state/transactions/hooks'
 import { useCallback } from 'react'
 import JSBI from 'jsbi'
 import { calculateGasMargin } from '../utils'
 import { TransactionResponse } from '@ethersproject/providers'
+import { USDT } from '../constants'
 
 export function useIDO() {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const contract = useRAMContract()
   const totalSale = CurrencyAmount.ether(BigInt('60000000000000000000000000'))
   const totalSaleWithAccount = useSingleCallResult(contract, 'mintedAmountInUSDTOf', [account ?? undefined])
   const totalSoleAmount = useSingleCallResult(contract, 'totalMintedAmount')
-  console.log('tag-->', totalSaleWithAccount, totalSoleAmount)
+  const totalSoleAmountInUSDT = useSingleCallResult(contract, 'totalMintedAmountInUSDT')
   return {
     totalSale,
-    totalSaleWithAccount: totalSaleWithAccount?.result
-      ? CurrencyAmount.ether(totalSaleWithAccount?.result?.[0])
+    totalSaleUSDTWithAccount: totalSaleWithAccount?.result
+      ? new TokenAmount(USDT[chainId ?? 56], totalSaleWithAccount?.result?.[0].toString())
       : undefined,
-    totalSoleAmount: totalSoleAmount?.result ? CurrencyAmount.ether(totalSoleAmount?.result?.[0]) : undefined
+    totalSoleAmount: totalSoleAmount?.result ? CurrencyAmount.ether(totalSoleAmount?.result?.[0]) : undefined,
+    totalSoleAmountInUSDT: totalSoleAmountInUSDT?.result
+      ? CurrencyAmount.ether(totalSoleAmountInUSDT?.result?.[0])
+      : undefined
   }
 }
 

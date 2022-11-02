@@ -18,6 +18,7 @@ import coin from '../../assets/images/coin.png'
 import footerBG from '../../assets/images/footer-bg.png'
 import centerBG from '../../assets/images/center-bg.png'
 import { ExternalLink } from '../../theme/components'
+import { PROJECTS } from '../../constants'
 
 const TopFrame = styled('div')(`
 width: 100%;
@@ -131,7 +132,7 @@ export default function MobileHome() {
         {/*</Stack>*/}
         <Image style={{ marginTop: 28 }} width={148} src={topText} />
         <Typography mt={4} mb={20} fontSize={12} textAlign={'center'}>
-          The first GameFi aggregation protocol which advocates F2P2E (Free to Play to Earn)
+          The first NFTfi aggregation protocol which advocates F2P2E (Free to Play to Earn)
         </Typography>
         <BuyButton sx={{ transform: 'scale(0.8)' }}>Buy $RAM</BuyButton>
         <ExternalLink href="">
@@ -157,7 +158,7 @@ export default function MobileHome() {
         </Stack>
       </TopFrame>
       <Box sx={{ background: `url(${centerBG})`, backgroundPosition: 'center', backgroundSize: 'auto 100%' }}>
-        <Title style={{ marginTop: 32 }}>Project Video</Title>
+        {/*<Title style={{ marginTop: 32 }}>Project Video</Title>*/}
         <Title>RamBox Products</Title>
         <Stack mt={32} alignItems={'center'} justifyContent={'center'} spacing={12}>
           <Card
@@ -220,30 +221,13 @@ export default function MobileHome() {
           columnSpacing={20}
           direction={'row'}
         >
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
-          <Grid item xs={4}>
-            <TextCard>BSC PROJECT</TextCard>
-          </Grid>
+          {PROJECTS.map((item, index) => {
+            return (
+              <Grid key={index} item xs={4}>
+                <TextCard>{item}</TextCard>
+              </Grid>
+            )
+          })}
         </Grid>
       </Box>
       <Box margin={20} borderRadius={'12px'} padding={38} mt={40} boxShadow={'0 0 10px 4px #242381 inset'}>

@@ -1,10 +1,16 @@
 import React, { useState, useCallback } from 'react'
 import { ExpandMore } from '@mui/icons-material'
 import { NavLink } from 'react-router-dom'
-import { Box, MenuItem, styled, Theme, Drawer } from '@mui/material'
+import { Box, MenuItem, styled, Theme, Drawer, Stack } from '@mui/material'
+import facebook from '../../assets/images/facebook.png'
+import twitter from '../../assets/images/twitter.png'
+import telegram from '../../assets/images/telegram.png'
+import medium from '../../assets/images/medium.png'
+import discord from '../../assets/images/discord.png'
 
 import { ExternalLink } from 'theme/components'
 import { Tabs } from '.'
+import Image from '../Image'
 
 const StyledNavLink = styled(NavLink)({})
 
@@ -78,6 +84,23 @@ export default function MobileMenu({ isOpen, onDismiss }: { isOpen: boolean; onD
             )
           )
         })}
+        <Stack padding={'0 30px'} mt={98} mb={12} direction={'row'} spacing={34}>
+          <ExternalLink href="">
+            <Image width={20} src={facebook} />
+          </ExternalLink>
+          <ExternalLink href="">
+            <Image width={20} src={twitter} />
+          </ExternalLink>
+          <ExternalLink href="">
+            <Image width={20} src={telegram} />
+          </ExternalLink>
+          <ExternalLink href="">
+            <Image width={20} src={medium} />
+          </ExternalLink>
+          <ExternalLink href="">
+            <Image width={20} src={discord} />
+          </ExternalLink>
+        </Stack>
       </Box>
     </Drawer>
   )

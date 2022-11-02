@@ -10,7 +10,6 @@ import { shortenAddress } from '../../utils'
 import WalletModal from 'components/Modal/WalletModal/index'
 import Spinner from 'components/Spinner'
 import { BlackButton } from 'components/Button/Button'
-import { ReactComponent as Web3StatusIconSvg } from 'assets/svg/web3status_icon.svg'
 import useBreakpoint from 'hooks/useBreakpoint'
 
 const ActionButton = styled(BlackButton)(({ theme }) => ({
@@ -25,12 +24,12 @@ const ActionButton = styled(BlackButton)(({ theme }) => ({
   }
 }))
 
-const Web3StatusIcon = styled(Web3StatusIconSvg)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    height: '24px',
-    width: '24px'
-  }
-}))
+// const Web3StatusIcon = styled(Web3StatusIconSvg)(({ theme }) => ({
+//   [theme.breakpoints.down('sm')]: {
+//     height: '24px',
+//     width: '24px'
+//   }
+// }))
 
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
@@ -65,7 +64,7 @@ function Web3StatusInner() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: theme.palette.background.default
+            backgroundColor: theme.palette.primary.main
           }}
         >
           <div />
@@ -90,7 +89,6 @@ function Web3StatusInner() {
               {ENSName || shortenAddress(account)}
             </Typography>
           )}
-          <Web3StatusIcon />
         </Box>
       </Box>
     )
