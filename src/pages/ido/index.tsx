@@ -52,11 +52,7 @@ export default function IDO() {
     }
     return false
   }, [inputAmount, totalSaleUSDTWithAccount])
-  console.log('t', totalSaleUSDTWithAccount?.raw.toString(), inputAmount?.raw.toString())
-  console.log(
-    'mint dis',
-    totalSaleUSDTWithAccount && inputAmount ? totalSaleUSDTWithAccount.add(inputAmount).raw.toString() : '--'
-  )
+
   return (
     <Stack>
       <Stack
@@ -85,7 +81,7 @@ export default function IDO() {
           unit="USDT"
           balance={usdtBalance?.toExact()}
           placeholder={''}
-          endAdornment={<img alt="" style={{ width: 28, maxWidth: 'unset' }} src={usdtImg} />}
+          endAdornment={<img alt="" style={{ width: 28, maxWidth: 'unset', marginRight: 12 }} src={usdtImg} />}
           value={typed}
           height={60}
           onChange={e => {

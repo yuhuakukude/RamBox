@@ -78,7 +78,7 @@ export default function NumericalInput({
         spellCheck="false"
         endAdornment={
           onMax && (
-            <Box gap="20px" display="flex" alignItems="center" paddingLeft="10px" paddingBottom="2px">
+            <Box display="flex" alignItems="center" paddingLeft="10px" paddingBottom="2px">
               {endAdornment ? endAdornment : unit && <span>{unit ?? 'USDT'}</span>}
               <SecondaryButton
                 fontSize={12}
